@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ADC_App", "ADC_App\ADC_App.vcproj", "{FCBFD4B9-0060-438C-8345-9888DD7A92B0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|TE6410 Board (ARMV4I) = Debug|TE6410 Board (ARMV4I)
+		Release|TE6410 Board (ARMV4I) = Release|TE6410 Board (ARMV4I)
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FCBFD4B9-0060-438C-8345-9888DD7A92B0}.Debug|TE6410 Board (ARMV4I).ActiveCfg = Debug|TE6410 Board (ARMV4I)
+		{FCBFD4B9-0060-438C-8345-9888DD7A92B0}.Debug|TE6410 Board (ARMV4I).Build.0 = Debug|TE6410 Board (ARMV4I)
+		{FCBFD4B9-0060-438C-8345-9888DD7A92B0}.Debug|TE6410 Board (ARMV4I).Deploy.0 = Debug|TE6410 Board (ARMV4I)
+		{FCBFD4B9-0060-438C-8345-9888DD7A92B0}.Release|TE6410 Board (ARMV4I).ActiveCfg = Release|TE6410 Board (ARMV4I)
+		{FCBFD4B9-0060-438C-8345-9888DD7A92B0}.Release|TE6410 Board (ARMV4I).Build.0 = Release|TE6410 Board (ARMV4I)
+		{FCBFD4B9-0060-438C-8345-9888DD7A92B0}.Release|TE6410 Board (ARMV4I).Deploy.0 = Release|TE6410 Board (ARMV4I)
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
