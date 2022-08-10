@@ -26,7 +26,7 @@
 #include <aygshell.h>
 #pragma comment(lib, "aygshell.lib") 
 
-
+#define _WINSOCKAPI_
 // Windows Header Files:
 #include <windows.h>
 

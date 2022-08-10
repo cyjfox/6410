@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DAC_Driver", "DAC_Driver\DAC_Driver.vcproj", "{09AC7EC1-25D8-453E-BB0B-8A46A99B61BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|TE6410 Board (ARMV4I) = Debug|TE6410 Board (ARMV4I)
+		Release|TE6410 Board (ARMV4I) = Release|TE6410 Board (ARMV4I)
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09AC7EC1-25D8-453E-BB0B-8A46A99B61BE}.Debug|TE6410 Board (ARMV4I).ActiveCfg = Debug|TE6410 Board (ARMV4I)
+		{09AC7EC1-25D8-453E-BB0B-8A46A99B61BE}.Debug|TE6410 Board (ARMV4I).Build.0 = Debug|TE6410 Board (ARMV4I)
+		{09AC7EC1-25D8-453E-BB0B-8A46A99B61BE}.Debug|TE6410 Board (ARMV4I).Deploy.0 = Debug|TE6410 Board (ARMV4I)
+		{09AC7EC1-25D8-453E-BB0B-8A46A99B61BE}.Release|TE6410 Board (ARMV4I).ActiveCfg = Release|TE6410 Board (ARMV4I)
+		{09AC7EC1-25D8-453E-BB0B-8A46A99B61BE}.Release|TE6410 Board (ARMV4I).Build.0 = Release|TE6410 Board (ARMV4I)
+		{09AC7EC1-25D8-453E-BB0B-8A46A99B61BE}.Release|TE6410 Board (ARMV4I).Deploy.0 = Release|TE6410 Board (ARMV4I)
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

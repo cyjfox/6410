@@ -1,0 +1,24 @@
+wince驱动开发
+chenyt2007
+于 2008-04-05 11:04:00 发布 688
+收藏
+文章标签： wince dll makefile os api 数据结构
+版权
+首先是wince驱动的分类问题。按照书上讲的说CE下驱动分成单体驱动和分层驱动,而看到另一种说法是本机驱动和流式驱动。经过microsun大哥的指点，把这两种分类法分开了。在这里引用一下：
+“单体与分层只是从代码的形式上做的分类.分层驱动代码上分为PDD与MDD,一般的微软已经实现了MDD，可能也实现了PDD，我们只需要对PDD做些修改就能使用，比如音频的驱动，显示的驱动。单层驱动是把PDD与MDD写在一起，没有做严格的区分，通常这种驱动比较简单，比如：ATADISK。
+至于本地驱动和流式驱动是从驱动与系统其它模块(调用者)的接口形式上做的分类.其实,本地驱动这个名称不大恰当,可能叫专用驱动或其它名字更为合适.它是指调用它的模块给它有特定的接口，比如电源驱动和通用LED驱动。而串口，网卡等就是流接口驱动程序.
+所以,一个驱动程序可以是单体的流式驱动,例如:ATADISK.也可以是分层的流式: 如OHCI ”
+        按照我的理解，单体和分层是驱动实现方式上的分类，而本地和流式则是驱动模型上的分类，所谓本地驱动就是操作系统有保留专门的接口，所谓流式是指编写的DLL文件里可以导出各种流式接口函数。
+         第二点：驱动的功能属性。 设备驱动程序是操作系统内核和硬件的接口，操作系统定义了一组标准的接口，编写驱动的过程也就是实现这些接口。从应用程序到具体硬件间有如下这些环节起作用：应用程序-调用OS函数-操作系统-驱动接口-驱动程序-硬件操作函数-硬件。在wince里驱动都以用户态的DLL存在，需要通过进程加载到slot里。共有三类系统进程用来加载：Device.exe,GWES.exe,FileSys.exe.绝大多数设备驱动都是通过Device.exe加载的。需要注意的是，不同的OS保留的设备驱动接口是不一样的，如桌面windows和wince就不同。
+      第三点：wince下设备的初始化分为两个阶段：Device.exe的初始化；外设的枚举和加载。其流程是：上电-启动bootloader-启动NK-启动注册表init键（Device.exe启动）-初始化数据结构，I/O，电源管理等-加载BusEnum.dll(总线枚举器）-枚举注册表下Driver/buildin的所有子键。这里的枚举过程就是循环调用ActivateDeviceEx()函数加载驱动的过程。在OS启动完毕后，我们可以用PB的Remote Registry Tool查看H_L_M/drivers/active包含的子键，看哪些驱动随启动而加载 。
+      第四点：流接口驱动的概念。暴露流式接口函数的驱动即是流驱动，它把外设抽象成一个文件。过程是：应用程序使用文件API对设备进行访问，OS接受API调用FileSys.exe，转到device.exe，调用流接口，与硬件交互。所谓流接口函数有十个，包括XXX_Init、XXX_Deinit、XXX_Open、XXX_Close、XXX_Read、XXX_Write、XXX_PowerUp、XXX_PowerDown、XXX_Seek、XXX_IOControl，在wince5.0中增加le了XXX_PreClose,XXX_PreDeinit.而我们在应用程序里对应的文件API有CreateFile、DeviceIoControl、 ReadFile、 WriteFile，CloseHandle,SetFilePointer.  
+      第五点：编写流驱动的步骤。有两种实现途径：1。写DLL，做成Project，加入到OS里。2。改BSP，把驱动写在BSP里,再选择那个BSP做OS。第一种方法步骤是在PB中新建一个DLL项目，编写一些输入函数，寄存器，外设的声明，写DLLENTRY函数；实现流接口函数；编写DLL的导出函数文件.DEF;为驱动程序写入注册表项，还需要修改bib文件。 第二种方法就是在platform/BSP/drivers下新建一个目录，然后在drivers目录中的dirs文件中加入新建的目录名。在新建的目录下，新建你的源代码文件，在其中实现DLL函数。新建名称分别为sources, makefile, ***.def的文件；修改platform.reg和platform.bib文件。     
+
+        几个小知识点：
+（1）应用程序可以通过ActivateDeviceEx()加载设备驱动； （2）注册表里的设备前缀Prefix项应该用三个字母表示，驱动的索引是Index.如果应用程序用CreateFile()来打开驱动程序时，第一个参数应该是这个Prefix项加上Index的值。（3）驱动程序中要用DMA,需要为其保留一段物理空间， 就要修改config.bib给驱动程序共享数据用。（4）查看驱动是否加载，可以用远程工具看注册表buildin/active键，或者是看device.exe的进程是否包含DLL文件。（5）DLL的入口函数名称默认是DllMain,但我们可以改成别的名称,在SOURCES文件中加入这样一行,DLLENTRY=ABCD
+入口函数就被改成了ABCD,我们就应该实现名为ABCD的函数.(6)感觉写驱动无从下手的时候,可以尝试看现有的代码
+与平台无关驱动源码位于public/common/OAK/Drivers
+与平台相关驱动 platform/{bsp}/srv/Drivers  
+————————————————
+版权声明：本文为CSDN博主「chenyt2007」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/chenyt2007/article/details/2252838
